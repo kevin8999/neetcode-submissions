@@ -1,31 +1,36 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        unordered_map<char, int> string1;
-        unordered_map<char, int> string2;
+        if (s.length() != t.length())
+            return false;
+
+        unordered_map<char, int> sMap;
+        unordered_map<char, int> tMap;
 
         for (char c : s) {
-            if (string1.count(c) == 0)
-                string1[c] = 1;
+            if (sMap.count(c))
+                sMap[c] += 1;
             else
-                string1[c] += 1;
+                sMap[c] = 1;
         }
 
         for (char c : t) {
-            if (string2.count(c) == 0)
-                string2[c] = 1;
+            if (tMap.count(c))
+                tMap[c] += 1;
             else
-                string2[c] += 1;   
+                tMap[c] = 1;
         }
 
         for (char c : s) {
-            if (string1[c] != string2[c])
+            if (sMap[c] != tMap[c])
                 return false;
         }
+
         for (char c : t) {
-            if (string2[c] != string1[c])
+            if (tMap[c] != sMap[c])
                 return false;
         }
+
         return true;
     }
 };
